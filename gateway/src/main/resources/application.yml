@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        #        - 精确的路由要放在上面，这样路由进入后会先进入精确的断言，不会被较为模糊的断言拦截
+#        - id: product
+#          uri: lb://product
+#          predicates:
+#            - Path=/api/product/**
+#          filters:
+#            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        #        - id: support
+        #          uri: lb://support
+        #          predicates:
+        #            - Path=/api/support/**
+        #          filters:
+        #            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+#        - id: admin
+#          uri: lb://renren-fast
+#          predicates:
+#            - Path=/api/**
+#          filters:
+#            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: comment
+          uri: lb://comment
+          predicates:
+#            - Host=comment.leo.com
+            - Path=/comment/**
+
+        - id: item
+          uri: lb://item
+          predicates:
+#            - Host=leo.com
+             -Path=/item/**
+
+        - id: star
+          uri: lb://star
+          predicates:
+#            - Host=star.leo.com
+            -Path=/star/**
+        - id: autho
+          uri: lb://autho
+          predicates:
+#            - Host=autho.leo.com
+             -Path=/autho/**
+
+        - id: member
+          uri: lb://member
+          predicates:
+#            - Host=member.leo.com
+            - Path=/member/**
+
+
+server:
+  port: 88
+
